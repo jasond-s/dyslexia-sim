@@ -7,8 +7,8 @@ $(function() {
 	    });
     };
  
-    var textNodes = getTextNodesIn($("p.body-text"));
-    var wordsInTextNodes = [];
+    let textNodes = getTextNodesIn($("p.body-text"));
+    let wordsInTextNodes = [];
 
     getWords();
 
@@ -18,17 +18,16 @@ $(function() {
 
     function getWords () {
         wordsInTextNodes = [];
-        for (var i = 0; i < textNodes.length; i++) {
-            var node = textNodes[i];
+        for (let i = 0; i < textNodes.length; i++) {
+            let node = textNodes[i];
+            let words = [];
+            let re = /\w+/g;
+            let match;
 
-            var words = []
-
-            var re = /\w+/g;
-            var match;
             while ((match = re.exec(node.nodeValue)) != null) {
 
-                var word = match[0];
-                var position = match.index;
+                let word = match[0];
+                let position = match.index;
 
                 words.push({
                     length: word.length,
@@ -40,25 +39,22 @@ $(function() {
         };
     }
 
-
 	function messUpWords () {
+		for (let i = 0; i < textNodes.length; i++) {
+			let node = textNodes[i];
 
-		for (var i = 0; i < textNodes.length; i++) {
-
-			var node = textNodes[i];
-
-			for (var j = 0; j < wordsInTextNodes[i].length; j++) {
+			for (let j = 0; j < wordsInTextNodes[i].length; j++) {
 
 				// Only change a tenth of the words each round.
 				if (Math.random() > 1/10) {
 					continue;
 				}
 
-				var wordMeta = wordsInTextNodes[i][j];
+				let wordMeta = wordsInTextNodes[i][j];
 
-				var word = node.nodeValue.slice(wordMeta.position, wordMeta.position + wordMeta.length);
-				var before = node.nodeValue.slice(0, wordMeta.position);
-				var after  = node.nodeValue.slice(wordMeta.position + wordMeta.length);
+				let word = node.nodeValue.slice(wordMeta.position, wordMeta.position + wordMeta.length);
+				let before = node.nodeValue.slice(0, wordMeta.position);
+				let after  = node.nodeValue.slice(wordMeta.position + wordMeta.length);
 
 				node.nodeValue = before + messUpWord(word) + after;
 			};
@@ -66,9 +62,7 @@ $(function() {
 	}
 
 	function messUpWord (word) {
-
-		if (word.length < 3) {
-
+		if (word.length < 3) {			
 			return word;
 		}
 
@@ -76,15 +70,12 @@ $(function() {
 	}
 
 	function messUpMessyPart (messyPart) {
-
 		if (messyPart.length < 2) {
-
 			return messyPart;
 		}
 
-		var a, b;
+		let a, b;
 		while (!(a < b)) {
-
 			a = getRandomInt(0, messyPart.length - 1);
 			b = getRandomInt(0, messyPart.length - 1);
 		}
@@ -99,7 +90,7 @@ $(function() {
 
     setInterval(messUpWords, 50);
 
-    var $txtBox = $('#textarea');
+    let $txtBox = $('#textarea');
     
     $txtBox.keyup(function(){
         $('p.body-text').text($txtBox.val());
