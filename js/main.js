@@ -90,7 +90,7 @@ $(function() {
 
     setInterval(messUpWords, 50);
 
-    let $txtBox = $('#textarea');
+    const $txtBox = $('#textarea');
     
     $txtBox.keyup(function(){
         $('p.body-text').text($txtBox.val());
