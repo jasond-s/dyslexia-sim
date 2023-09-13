@@ -1,6 +1,5 @@
 $(function() {
     "use strict";
-
 	function getTextNodesIn(el) {
 	    return $(el).find(":not(iframe,script)").addBack().contents().filter(function() {
 	        return this.nodeType == 3;
